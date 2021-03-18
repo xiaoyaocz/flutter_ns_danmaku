@@ -1,7 +1,7 @@
 name: ns_danmaku
 description: NSDanmaku for Flutter.
 version: 0.0.1
-author: xiaoyaocz <xiaoyaocz@52uwp.com>
+#author: xiaoyaocz <xiaoyaocz@52uwp.com>
 homepage: https://github.com/xiaoyaocz/flutter_ns_danmaku
 
 environment:
