@@ -34,5 +34,7 @@ class _DanmakuPageState extends State<DanmakuPage> {
 ## Reference
 
 [https://zhuanlan.zhihu.com/p/159027974](https://zhuanlan.zhihu.com/p/159027974)
+
 [https://www.zhihu.com/question/370464345](https://www.zhihu.com/question/370464345)
+
 [https://github.com/LaoMengFlutter/flutter-do](https://github.com/LaoMengFlutter/flutter-do/tree/master/flutter_barrage_sample)
