@@ -91,8 +91,8 @@ class _DanmakuViewState extends State<DanmakuView> {
 
   @override
   void dispose() {
-    clear();
     _timer.cancel();
+    clear(needSetState: false);
     super.dispose();
   }
 
@@ -329,11 +329,13 @@ class _DanmakuViewState extends State<DanmakuView> {
   }
 
   /// 清空全部弹幕
-  void clear() {
+  void clear({needSetState = true}) {
     clearScroll(needSetState: false);
     clearTop(needSetState: false);
     clearBottom(needSetState: false);
-    setState(() {});
+    if (needSetState) {
+      setState(() {});
+    }
   }
 
   /// 清空滚动弹幕

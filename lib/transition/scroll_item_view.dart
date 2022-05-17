@@ -74,7 +74,7 @@ class _ScrollItemViewState extends State<ScrollItemView>
       child: Container(
         height: widget.size.height,
         width: widget.size.width,
-        alignment: Alignment.topLeft,
+        alignment: Alignment.center,
         child: widget.border
             ? DanmakuBorderText(
                 widget.text,

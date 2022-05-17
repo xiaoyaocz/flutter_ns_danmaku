@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage> {
   int sec = 0;
   Map<int, List<DanmakuItem>> _danmuItems = {};
   void startPlay() async {
-    String data = await rootBundle.loadString('assets/62570001.json');
+    String data = await rootBundle.loadString('assets/132590001.json');
     List<DanmakuItem> _items = [];
     var jsonMap = json.decode(data);
     for (var item in jsonMap['comments']) {
@@ -268,6 +268,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
+    timer?.cancel();
     super.dispose();
   }
 }
