@@ -12,7 +12,7 @@ class ScrollItemView extends StatefulWidget {
   final Size size;
   final Function(String)? onComplete;
   final Function(AnimationController)? onCreated;
-  ScrollItemView({
+  const ScrollItemView({
     required this.text,
     this.fontSize = 16,
     this.duration = 10,

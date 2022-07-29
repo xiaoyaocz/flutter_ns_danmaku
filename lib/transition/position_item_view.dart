@@ -10,7 +10,7 @@ class PositionItemView extends StatefulWidget {
   final bool isTop;
   final Function(String)? onComplete;
   final Function(AnimationController)? onCreated;
-  PositionItemView({
+  const PositionItemView({
     required this.text,
     this.fontSize = 16,
     this.color = Colors.white,

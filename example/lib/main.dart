@@ -3,10 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:ns_danmaku/danmaku_controller.dart';
-import 'package:ns_danmaku/danmaku_view.dart';
-import 'package:ns_danmaku/models/danmaku_option.dart';
-import 'package:ns_danmaku/models/danmaku_item.dart';
+import 'package:ns_danmaku/ns_danmaku.dart';
+
 import 'package:flutter/services.dart';
 
 void main() async {
