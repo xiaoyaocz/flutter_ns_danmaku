@@ -27,7 +27,7 @@ class ScrollItemView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ScrollItemViewState createState() => _ScrollItemViewState();
+  State<ScrollItemView> createState() => _ScrollItemViewState();
 }
 
 class _ScrollItemViewState extends State<ScrollItemView>
@@ -86,6 +86,7 @@ class _ScrollItemViewState extends State<ScrollItemView>
                 style: TextStyle(
                   color: widget.color,
                   fontSize: widget.fontSize,
+                  letterSpacing: 2,
                 ),
               ),
       ),

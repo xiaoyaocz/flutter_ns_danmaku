@@ -23,10 +23,13 @@ class DanmakuBorderText extends StatelessWidget {
           textAlign: textAlign,
           style: TextStyle(
             fontSize: fontSize,
+            letterSpacing: 1,
             foreground: Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth = 2
-              ..color = color == Colors.black ? Colors.white : Colors.black,
+              ..strokeWidth = strokeWidth
+              ..strokeCap = StrokeCap.round
+              ..strokeJoin = StrokeJoin.round
+              ..color = getBorderColor(color),
           ),
         ),
         Text(
@@ -34,11 +37,20 @@ class DanmakuBorderText extends StatelessWidget {
           softWrap: false,
           textAlign: textAlign,
           style: TextStyle(
+            letterSpacing: 1,
             fontSize: fontSize,
             color: color,
           ),
         ),
       ],
     );
+  }
+
+  double get strokeWidth => (fontSize / 20).ceil() * 2;
+
+  Color getBorderColor(Color color) {
+    var brightness =
+        ((color.red * 299) + (color.green * 587) + (color.blue * 114)) / 1000;
+    return brightness > 70 ? Colors.black : Colors.white;
   }
 }

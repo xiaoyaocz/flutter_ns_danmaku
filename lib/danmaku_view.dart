@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'transition/position_item_view.dart';
 import 'transition/scroll_item_view.dart';
@@ -13,7 +14,7 @@ class DanmakuView extends StatefulWidget {
   final Function(DanmakuController) createdController;
   final DanmakuOption option;
   final Function(bool)? statusChanged;
-  DanmakuView({
+  const DanmakuView({
     required this.createdController,
     required this.option,
     this.statusChanged,
@@ -21,7 +22,7 @@ class DanmakuView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DanmakuViewState createState() => _DanmakuViewState();
+  State<DanmakuView> createState() => _DanmakuViewState();
 }
 
 class _DanmakuViewState extends State<DanmakuView> {
@@ -44,11 +45,14 @@ class _DanmakuViewState extends State<DanmakuView> {
   /// 视图宽度
   double _viewWidth = 0;
 
+  /// 视图高度
+  double _viewHeight = 0;
+
   /// 最大行数
   int _maxRowNum = 0;
 
   /// 弹幕动画控制器集合
-  Map<String, AnimationController> _controllers = {};
+  final Map<String, AnimationController> _controllers = {};
 
   /// 滚动弹幕行信息
   List<RowInfo?> _scrollRows = [];
@@ -60,13 +64,13 @@ class _DanmakuViewState extends State<DanmakuView> {
   List<double> _bottomOutTimes = [];
 
   /// 屏幕中的全部滚动弹幕ID
-  List<String> _scrollIDs = [];
+  final List<String> _scrollIDs = [];
 
   /// 屏幕中的全部顶部弹幕ID
-  List<String> _topIDs = [];
+  final List<String> _topIDs = [];
 
   /// 屏幕中的全部底部弹幕ID
-  List<String> _bottomIDs = [];
+  final List<String> _bottomIDs = [];
   @override
   void initState() {
     _option = widget.option;
@@ -81,7 +85,7 @@ class _DanmakuViewState extends State<DanmakuView> {
     widget.createdController.call(
       _controller,
     );
-    _timer = Timer.periodic(Duration(seconds: 1), (e) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (e) {
       if (_controller.running) {
         _runTime += 1;
       }
@@ -94,6 +98,13 @@ class _DanmakuViewState extends State<DanmakuView> {
     _timer.cancel();
     clear(needSetState: false);
     super.dispose();
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
 
   void addItems(List<DanmakuItem> items) {
@@ -398,47 +409,56 @@ class _DanmakuViewState extends State<DanmakuView> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (ctx, con) {
-      var size = calculateTextSize('测试vjgpqa', _option.fontSize);
-      _itemHeight = size.height;
-      _viewWidth = con.maxWidth;
-      //计算最大行数
-      var _row = ((con.maxHeight / (_itemHeight * 1.2)) * _option.area).floor();
-      if (_maxRowNum != _row) {
-        _scrollRows = [];
-        _topOutTimes = [];
-        _bottomOutTimes = [];
-        for (var i = 0; i < _row; i++) {
-          _scrollRows.add(null);
-          if (i < _row / 2) {
-            _topOutTimes.add(0);
-            _bottomOutTimes.add(0);
-          }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxHeight != _viewHeight) {
+          _viewHeight = constraints.maxHeight;
+          calculateRowNum(_viewHeight);
         }
-        _maxRowNum = _row;
+        if (constraints.maxWidth != _viewWidth) {
+          _viewWidth = constraints.maxWidth;
+        }
+
+        return ClipRRect(
+          child: Opacity(
+            opacity: _option.opacity,
+            child: Stack(
+              children: [
+                Stack(
+                  children: _scrollWidgets.values.toList(),
+                ),
+                //无法设置z-index,所以把滚动弹幕及位置弹幕分开，防止滚动弹幕重叠位置弹幕
+                Stack(
+                  children: _positionWidgets.values.toList(),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void calculateRowNum(double height) {
+    var itemSize = calculateTextSize('测试vjgpqa', _option.fontSize);
+    _itemHeight = itemSize.height;
+
+    //计算最大行数
+    var maxRow = ((height / (_itemHeight * 1.2)) * _option.area).floor();
+    if (_maxRowNum != maxRow) {
+      _scrollRows = List.generate(maxRow, (_) => null);
+      _topOutTimes = List.generate(maxRow ~/ 2, (_) => 0);
+      _bottomOutTimes = List.generate(maxRow ~/ 2, (_) => 0);
+      _maxRowNum = maxRow;
+      if (kDebugMode) {
         print("弹幕最大行数:$_maxRowNum");
       }
-
-      return Opacity(
-        opacity: _option.opacity,
-        child: Stack(
-          children: [
-            Container(),
-            Stack(
-              children: _scrollWidgets.values.toList(),
-            ),
-            //无法设置z-index,所以把滚动弹幕及位置弹幕分开，防止滚动弹幕重叠位置弹幕
-            Stack(
-              children: _positionWidgets.values.toList(),
-            ),
-          ],
-        ),
-      );
-    });
+    }
   }
 
   /// 计算文本尺寸
   Size calculateTextSize(String value, double fontSize) {
+    var letterSpacing = ((fontSize / 20).ceil() * 2.0) + 2;
     TextPainter painter = TextPainter(
       locale: Localizations.localeOf(context),
       maxLines: 1,
@@ -447,6 +467,7 @@ class _DanmakuViewState extends State<DanmakuView> {
         text: value,
         style: TextStyle(
           fontSize: fontSize,
+          letterSpacing: letterSpacing,
         ),
       ),
     );

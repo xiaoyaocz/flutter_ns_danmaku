@@ -1,6 +1,6 @@
 name: ns_danmaku
 description: NSDanmaku for Flutter.
-version: 0.0.2
+version: 0.0.3
 #author: xiaoyaocz <xiaoyaocz@52uwp.com>
 homepage: https://github.com/xiaoyaocz/flutter_ns_danmaku
 
@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 

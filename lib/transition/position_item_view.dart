@@ -23,7 +23,7 @@ class PositionItemView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PositionItemViewState createState() => _PositionItemViewState();
+  State<PositionItemView> createState() => _PositionItemViewState();
 }
 
 class _PositionItemViewState extends State<PositionItemView>
@@ -36,7 +36,7 @@ class _PositionItemViewState extends State<PositionItemView>
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
       vsync: this,
     );
 
@@ -88,6 +88,7 @@ class _PositionItemViewState extends State<PositionItemView>
                 style: TextStyle(
                   color: widget.color,
                   fontSize: widget.fontSize,
+                  letterSpacing: 2,
                 ),
               ),
       ),
