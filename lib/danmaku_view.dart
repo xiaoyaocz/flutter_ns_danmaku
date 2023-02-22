@@ -418,8 +418,8 @@ class _DanmakuViewState extends State<DanmakuView> {
         if (constraints.maxWidth != _viewWidth) {
           _viewWidth = constraints.maxWidth;
         }
-
-        return ClipRRect(
+        //加上ClipRect防止超出边界显示
+        return ClipRect(
           child: Opacity(
             opacity: _option.opacity,
             child: Stack(
@@ -427,7 +427,7 @@ class _DanmakuViewState extends State<DanmakuView> {
                 Stack(
                   children: _scrollWidgets.values.toList(),
                 ),
-                //无法设置z-index,所以把滚动弹幕及位置弹幕分开，防止滚动弹幕重叠位置弹幕
+                //无法设置z-index,所以把滚动弹幕及位置弹幕分开，防止滚动弹幕重叠固定弹幕
                 Stack(
                   children: _positionWidgets.values.toList(),
                 ),
