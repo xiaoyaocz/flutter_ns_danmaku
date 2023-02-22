@@ -38,10 +38,3 @@ class _DanmakuPageState extends State<DanmakuPage> {
 [https://www.zhihu.com/question/370464345](https://www.zhihu.com/question/370464345)
 
 [https://github.com/LaoMengFlutter/flutter-do](https://github.com/LaoMengFlutter/flutter-do/tree/master/flutter_barrage_sample)
-
-
-## TODO 
-
-1、优化弹幕配置方式
-2、应先初始化Controller
-3、弹幕边框优化
