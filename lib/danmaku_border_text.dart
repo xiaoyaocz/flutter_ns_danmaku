@@ -23,7 +23,6 @@ class DanmakuBorderText extends StatelessWidget {
           textAlign: textAlign,
           style: TextStyle(
             fontSize: fontSize,
-            letterSpacing: 1,
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = strokeWidth
@@ -37,7 +36,6 @@ class DanmakuBorderText extends StatelessWidget {
           softWrap: false,
           textAlign: textAlign,
           style: TextStyle(
-            letterSpacing: 1,
             fontSize: fontSize,
             color: color,
           ),
