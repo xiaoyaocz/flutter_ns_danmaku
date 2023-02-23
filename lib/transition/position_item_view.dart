@@ -8,6 +8,7 @@ class PositionItemView extends StatefulWidget {
   final double y;
   final bool border;
   final bool isTop;
+  final double strokeWidth;
   final Function(String)? onComplete;
   final Function(AnimationController)? onCreated;
   const PositionItemView({
@@ -17,6 +18,7 @@ class PositionItemView extends StatefulWidget {
     this.y = 0,
     this.border = true,
     this.isTop = true,
+    this.strokeWidth = 2.0,
     this.onComplete,
     this.onCreated,
     required UniqueKey key,
@@ -82,6 +84,7 @@ class _PositionItemViewState extends State<PositionItemView>
                 widget.text,
                 color: widget.color,
                 fontSize: widget.fontSize,
+                strokeWidth: widget.strokeWidth,
               )
             : Text(
                 widget.text,

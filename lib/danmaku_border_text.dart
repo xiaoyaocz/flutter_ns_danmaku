@@ -5,11 +5,13 @@ class DanmakuBorderText extends StatelessWidget {
   final TextAlign textAlign;
   final Color color;
   final double fontSize;
+  final double strokeWidth;
   const DanmakuBorderText(
     this.text, {
     this.textAlign = TextAlign.left,
     this.color = Colors.white,
     this.fontSize = 16,
+    this.strokeWidth = 2.0,
     Key? key,
   }) : super(key: key);
 
@@ -44,7 +46,7 @@ class DanmakuBorderText extends StatelessWidget {
     );
   }
 
-  double get strokeWidth => (fontSize / 20).ceil() * 2;
+  //double get strokeWidth => (fontSize / 20).ceil() * 2;
 
   Color getBorderColor(Color color) {
     var brightness =

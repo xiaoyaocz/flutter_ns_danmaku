@@ -10,6 +10,7 @@ class ScrollItemView extends StatefulWidget {
   final double x;
   final bool border;
   final Size size;
+  final double strokeWidth;
   final Function(String)? onComplete;
   final Function(AnimationController)? onCreated;
   const ScrollItemView({
@@ -21,6 +22,7 @@ class ScrollItemView extends StatefulWidget {
     this.x = 0,
     this.size = Size.zero,
     this.border = true,
+    this.strokeWidth = 2.0,
     this.onComplete,
     this.onCreated,
     required UniqueKey key,
@@ -80,6 +82,7 @@ class _ScrollItemViewState extends State<ScrollItemView>
                 widget.text,
                 color: widget.color,
                 fontSize: widget.fontSize,
+                strokeWidth: widget.strokeWidth,
               )
             : Text(
                 widget.text,

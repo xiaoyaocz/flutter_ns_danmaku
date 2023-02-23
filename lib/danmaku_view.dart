@@ -168,6 +168,7 @@ class _DanmakuViewState extends State<DanmakuView> {
       id: ScrollItemView(
         text: e.text,
         duration: _option.duration,
+        strokeWidth: _option.strokeWidth,
         x: x,
         y: y.toDouble() * 1.2,
         size: Size(danmuSize.width, _itemHeight),
@@ -213,6 +214,7 @@ class _DanmakuViewState extends State<DanmakuView> {
           key: key,
           text: item.text,
           color: item.color,
+          strokeWidth: _option.strokeWidth,
           fontSize: _option.fontSize,
           isTop: item.type == DanmakuItemType.top,
           border: _option.borderText,
@@ -293,6 +295,7 @@ class _DanmakuViewState extends State<DanmakuView> {
 
   /// 更新弹幕设置
   void updateOption(DanmakuOption option) {
+    _viewHeight = 0.0;
     // 弹幕屏蔽处理
     if (_option.hideBottom != option.hideBottom && option.hideBottom) {
       clearBottom(needSetState: false);

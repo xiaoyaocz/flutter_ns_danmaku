@@ -20,6 +20,9 @@ class DanmakuOption {
   /// 隐藏滚动弹幕
   final bool hideScroll;
 
+  /// 弹幕描边
+  final double strokeWidth;
+
   /// 文本是否有边框
   final bool borderText;
   DanmakuOption({
@@ -31,6 +34,7 @@ class DanmakuOption {
     this.hideScroll = false,
     this.hideTop = false,
     this.borderText = true,
+    this.strokeWidth = 2.0,
   });
 
   DanmakuOption copyWith({
@@ -42,6 +46,7 @@ class DanmakuOption {
     bool? hideBottom,
     bool? hideScroll,
     bool? borderText,
+    double? strokeWidth,
   }) {
     return DanmakuOption(
       area: area ?? this.area,
@@ -52,6 +57,7 @@ class DanmakuOption {
       hideBottom: hideBottom ?? this.hideBottom,
       hideScroll: hideScroll ?? this.hideScroll,
       borderText: borderText ?? this.borderText,
+      strokeWidth: strokeWidth ?? this.strokeWidth,
     );
   }
 }
