@@ -466,6 +466,7 @@ class _DanmakuViewState extends State<DanmakuView> {
       locale: Localizations.localeOf(context),
       maxLines: 1,
       textDirection: TextDirection.ltr,
+      textScaleFactor: MediaQuery.of(context).textScaleFactor,
       text: TextSpan(
         text: value,
         style: TextStyle(
@@ -474,7 +475,7 @@ class _DanmakuViewState extends State<DanmakuView> {
         ),
       ),
     );
-    painter.layout(maxWidth: 1000);
+    painter.layout();
 
     return Size(painter.width, painter.height);
   }
