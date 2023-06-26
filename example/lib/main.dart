@@ -9,12 +9,12 @@ import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ],
-  );
+  // await SystemChrome.setPreferredOrientations(
+  //   [
+  //     DeviceOrientation.landscapeRight,
+  //     DeviceOrientation.landscapeLeft,
+  //   ],
+  // );
   runApp(MyApp());
 }
 
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   bool _hideScroll = false;
   bool _border = true;
   double _opacity = 1.0;
-  double _duration = 10;
+  double _duration = 8;
   double _fontSize = (Platform.isIOS || Platform.isAndroid) ? 16 : 25;
   @override
   Widget build(BuildContext context) {
@@ -65,6 +65,8 @@ class _HomePageState extends State<HomePage> {
             tooltip: 'Add',
             onPressed: () {
               _controller.addItems([
+                DanmakuItem(
+                    "这是一条超长弹幕ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789这是一条超长的弹幕，这条弹幕会超出屏幕宽度"),
                 DanmakuItem("这是一条测试弹幕"),
                 DanmakuItem(
                   "这是一条测试弹幕",

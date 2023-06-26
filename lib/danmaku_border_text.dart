@@ -25,6 +25,7 @@ class DanmakuBorderText extends StatelessWidget {
           textAlign: textAlign,
           style: TextStyle(
             fontSize: fontSize,
+            overflow: TextOverflow.visible,
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = strokeWidth
@@ -40,6 +41,7 @@ class DanmakuBorderText extends StatelessWidget {
           style: TextStyle(
             fontSize: fontSize,
             color: color,
+            overflow: TextOverflow.visible,
           ),
         ),
       ],

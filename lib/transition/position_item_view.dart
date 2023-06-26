@@ -34,6 +34,8 @@ class _PositionItemViewState extends State<PositionItemView>
   bool get isComplete => controller.isCompleted;
   late Animation<RelativeRect> _animation;
 
+  bool isVisiable = true;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +65,10 @@ class _PositionItemViewState extends State<PositionItemView>
   void statusUpdate(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
       widget.onComplete?.call(widget.key.toString());
+      setState(() {
+        //完成动画隐藏弹幕，当DanmakuView SetState时，这个Widget会被移除
+        isVisiable = false;
+      });
     }
   }
 
@@ -77,23 +83,28 @@ class _PositionItemViewState extends State<PositionItemView>
   Widget build(BuildContext context) {
     return PositionedTransition(
       rect: _animation,
-      child: Container(
-        alignment: widget.isTop ? Alignment.topCenter : Alignment.bottomCenter,
-        child: widget.border
-            ? DanmakuBorderText(
-                widget.text,
-                color: widget.color,
-                fontSize: widget.fontSize,
-                strokeWidth: widget.strokeWidth,
-              )
-            : Text(
-                widget.text,
-                style: TextStyle(
+      child: Offstage(
+        offstage: !isVisiable,
+        child: Container(
+          alignment:
+              widget.isTop ? Alignment.topCenter : Alignment.bottomCenter,
+          child: widget.border
+              ? DanmakuBorderText(
+                  widget.text,
                   color: widget.color,
                   fontSize: widget.fontSize,
-                  letterSpacing: 2,
+                  strokeWidth: widget.strokeWidth,
+                )
+              : Text(
+                  widget.text,
+                  style: TextStyle(
+                    color: widget.color,
+                    fontSize: widget.fontSize,
+                    letterSpacing: 2,
+                    overflow: TextOverflow.visible,
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

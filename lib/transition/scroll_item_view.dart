@@ -7,7 +7,8 @@ class ScrollItemView extends StatefulWidget {
   final double fontSize;
   final double duration;
   final double y;
-  final double x;
+  final double begin;
+  final double end;
   final bool border;
   final Size size;
   final double strokeWidth;
@@ -19,7 +20,8 @@ class ScrollItemView extends StatefulWidget {
     this.duration = 10,
     this.color = Colors.white,
     this.y = 0,
-    this.x = 0,
+    this.begin = 0,
+    this.end = -1,
     this.size = Size.zero,
     this.border = true,
     this.strokeWidth = 2.0,
@@ -48,9 +50,10 @@ class _ScrollItemViewState extends State<ScrollItemView>
 
     controller.addStatusListener(statusUpdate);
 
-    _animation =
-        Tween(begin: Offset(widget.x, widget.y), end: Offset(-1, widget.y))
-            .animate(controller);
+    _animation = Tween(
+            begin: Offset(widget.begin, widget.y),
+            end: Offset(widget.end, widget.y))
+        .animate(controller);
 
     widget.onCreated?.call(controller);
     controller.forward();
@@ -73,10 +76,9 @@ class _ScrollItemViewState extends State<ScrollItemView>
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _animation,
-      child: Container(
+      child: SizedBox(
         height: widget.size.height,
         width: widget.size.width,
-        alignment: Alignment.center,
         child: widget.border
             ? DanmakuBorderText(
                 widget.text,
@@ -90,6 +92,7 @@ class _ScrollItemViewState extends State<ScrollItemView>
                   color: widget.color,
                   fontSize: widget.fontSize,
                   letterSpacing: 2,
+                  overflow: TextOverflow.visible,
                 ),
               ),
       ),
