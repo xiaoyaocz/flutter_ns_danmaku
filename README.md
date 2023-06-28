@@ -1,5 +1,12 @@
 一个简单的Flutter弹幕组件。
 
+## 截图
+
+|  DEMO  |  案例  |
+|  ----  | ----  |
+| ![screenshot1](assets/screenshot1.jpg)  | ![screenshot2](assets/screenshot2.jpg) |
+
+
 ## 说明
 
 `debug`模式下会卡顿掉帧，请在`profile`及`release`模式下运行查看实际效果。
