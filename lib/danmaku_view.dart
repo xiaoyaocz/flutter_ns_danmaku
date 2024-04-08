@@ -131,8 +131,8 @@ class _DanmakuViewState extends State<DanmakuView> {
       return;
     }
     //计算此弹幕尺寸
-    var danmuSize =
-        calculateTextSize(e.text, _option.fontSize, _option.strokeWidth);
+    var danmuSize = calculateTextSize(
+        e.text, _option.fontSize, _option.strokeWidth, _option.fontWeight);
     //初始x坐标为0,即在屏幕的最左侧
     //x坐标为1时是弹幕自身宽度的1倍
     //将弹幕起始位置设置在屏幕的最右侧，x=容器宽度/弹幕宽度
@@ -180,8 +180,9 @@ class _DanmakuViewState extends State<DanmakuView> {
         size: Size(danmuSize.width, _itemHeight),
         color: e.color,
         fontSize: _option.fontSize,
+        fontWeight: _option.fontWeight,
         onComplete: onItemComplete,
-        border: _option.borderText,
+        border: _option.strokeText,
         onCreated: (e) {
           _controllers.addAll({id: e});
         },
@@ -223,7 +224,8 @@ class _DanmakuViewState extends State<DanmakuView> {
           strokeWidth: _option.strokeWidth,
           fontSize: _option.fontSize,
           isTop: item.type == DanmakuItemType.top,
-          border: _option.borderText,
+          fontWeight: _option.fontWeight,
+          strokeText: _option.strokeText,
           onComplete: onItemComplete,
           y: top,
           onCreated: (e) {
@@ -272,8 +274,12 @@ class _DanmakuViewState extends State<DanmakuView> {
   }
 
   double computeTopAvailableRow(DanmakuItem item) {
-    var danmuSize =
-        calculateTextSize(item.text, _option.fontSize, _option.strokeWidth);
+    var danmuSize = calculateTextSize(
+      item.text,
+      _option.fontSize,
+      _option.strokeWidth,
+      _option.fontWeight,
+    );
     // 哪一行可以加入弹幕
     var row = _topOutTimes.indexWhere((e) => e <= _runTime);
     if (row == -1) {
@@ -285,8 +291,12 @@ class _DanmakuViewState extends State<DanmakuView> {
   }
 
   double computeBottomAvailableRow(DanmakuItem item) {
-    var danmuSize =
-        calculateTextSize(item.text, _option.fontSize, _option.strokeWidth);
+    var danmuSize = calculateTextSize(
+      item.text,
+      _option.fontSize,
+      _option.strokeWidth,
+      _option.fontWeight,
+    );
     // 哪一行可以加入弹幕
     var row = _bottomOutTimes.indexWhere((e) => e < _runTime);
     if (row == -1) {
@@ -447,8 +457,12 @@ class _DanmakuViewState extends State<DanmakuView> {
   }
 
   void calculateRowNum(double height) {
-    var itemSize =
-        calculateTextSize('测试vjgpqa', _option.fontSize, _option.strokeWidth);
+    var itemSize = calculateTextSize(
+      '测试vjgpqa',
+      _option.fontSize,
+      _option.strokeWidth,
+      _option.fontWeight,
+    );
     _itemHeight = itemSize.height;
 
     //计算最大行数
@@ -465,17 +479,23 @@ class _DanmakuViewState extends State<DanmakuView> {
   }
 
   /// 计算文本尺寸
-  Size calculateTextSize(String value, double fontSize, double strokeWidth) {
+  Size calculateTextSize(
+    String value,
+    double fontSize,
+    double strokeWidth,
+    FontWeight fontWeight,
+  ) {
     //var letterSpacing = (fontSize / 20).ceil() * 2.0;
     TextPainter painter = TextPainter(
       locale: Localizations.localeOf(context),
       maxLines: 1,
       textDirection: TextDirection.ltr,
-      textScaleFactor: MediaQuery.of(context).textScaleFactor,
+      textScaler: MediaQuery.of(context).textScaler,
       text: TextSpan(
         text: value,
         style: TextStyle(
           fontSize: fontSize,
+          fontWeight: fontWeight,
           // letterSpacing: letterSpacing,
           overflow: TextOverflow.visible,
           foreground: Paint()

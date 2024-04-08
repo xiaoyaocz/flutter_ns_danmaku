@@ -48,10 +48,11 @@ class _HomePageState extends State<HomePage> {
   bool _hideTop = false;
   bool _hideBottom = false;
   bool _hideScroll = false;
-  bool _border = true;
+  bool _strokeText = true;
   double _opacity = 1.0;
   double _duration = 8;
   double _fontSize = (Platform.isIOS || Platform.isAndroid) ? 16 : 25;
+  FontWeight _fontWeight = FontWeight.normal;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +120,8 @@ class _HomePageState extends State<HomePage> {
           opacity: _opacity,
           fontSize: _fontSize,
           duration: _duration,
-          borderText: _border,
+          strokeText: _strokeText,
+          fontWeight: _fontWeight,
         ),
         statusChanged: (e) {
           setState(() {
@@ -128,102 +130,118 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.all(8),
-          children: [
-            Text("Opacity : $_opacity"),
-            Slider(
-              value: _opacity,
-              max: 1.0,
-              min: 0.1,
-              divisions: 9,
-              onChanged: (e) {
-                setState(() {
-                  _opacity = e;
-                });
-                _controller
-                    .updateOption(_controller.option.copyWith(opacity: e));
-              },
-            ),
-            Text("FontSize : $_fontSize"),
-            Slider(
-              value: _fontSize,
-              min: 8,
-              max: 36,
-              divisions: 14,
-              onChanged: (e) {
-                setState(() {
-                  _fontSize = e;
-                });
-                _controller
-                    .updateOption(_controller.option.copyWith(fontSize: e));
-              },
-            ),
-            Text("Duration : $_duration"),
-            Slider(
-              value: _duration,
-              min: 4,
-              max: 20,
-              divisions: 16,
-              onChanged: (e) {
-                setState(() {
-                  _duration = e;
-                });
-                _controller
-                    .updateOption(_controller.option.copyWith(duration: e));
-              },
-            ),
-            SwitchListTile(
-              title: Text("Border Text"),
-              value: _border,
-              onChanged: (e) {
-                setState(() {
-                  _border = e;
-                });
-                _controller
-                    .updateOption(_controller.option.copyWith(borderText: e));
-              },
-            ),
-            SwitchListTile(
-              title: Text("Hide Top"),
-              value: _hideTop,
-              onChanged: (e) {
-                setState(() {
-                  _hideTop = e;
-                });
-                _controller
-                    .updateOption(_controller.option.copyWith(hideTop: e));
-              },
-            ),
-            SwitchListTile(
-              title: Text("Hide Bottom"),
-              value: _hideBottom,
-              onChanged: (e) {
-                setState(() {
-                  _hideBottom = e;
-                });
-                _controller
-                    .updateOption(_controller.option.copyWith(hideBottom: e));
-              },
-            ),
-            SwitchListTile(
-              title: Text("Hide Scroll"),
-              value: _hideScroll,
-              onChanged: (e) {
-                setState(() {
-                  _hideScroll = e;
-                });
-                _controller
-                    .updateOption(_controller.option.copyWith(hideScroll: e));
-              },
-            ),
-            ListTile(
-              title: Text("Clear"),
-              onTap: () {
-                _controller.clear();
-              },
-            )
-          ],
+        child: SafeArea(
+          child: ListView(
+            padding: EdgeInsets.all(8),
+            children: [
+              Text("Opacity : $_opacity"),
+              Slider(
+                value: _opacity,
+                max: 1.0,
+                min: 0.1,
+                divisions: 9,
+                onChanged: (e) {
+                  setState(() {
+                    _opacity = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(opacity: e));
+                },
+              ),
+              Text("FontSize : $_fontSize"),
+              Slider(
+                value: _fontSize,
+                min: 8,
+                max: 36,
+                divisions: 14,
+                onChanged: (e) {
+                  setState(() {
+                    _fontSize = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(fontSize: e));
+                },
+              ),
+              Text("FontWidght : $_fontWeight"),
+              Slider(
+                value: _fontWeight.index.toDouble(),
+                min: 0,
+                max: 8,
+                divisions: 8,
+                onChanged: (e) {
+                  setState(() {
+                    _fontWeight = FontWeight.values[e.toInt()];
+                  });
+                  _controller.updateOption(
+                      _controller.option.copyWith(fontWeight: _fontWeight));
+                },
+              ),
+              Text("Duration : $_duration"),
+              Slider(
+                value: _duration,
+                min: 4,
+                max: 20,
+                divisions: 16,
+                onChanged: (e) {
+                  setState(() {
+                    _duration = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(duration: e));
+                },
+              ),
+              SwitchListTile(
+                title: Text("Stroke Text"),
+                value: _strokeText,
+                onChanged: (e) {
+                  setState(() {
+                    _strokeText = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(borderText: e));
+                },
+              ),
+              SwitchListTile(
+                title: Text("Hide Top"),
+                value: _hideTop,
+                onChanged: (e) {
+                  setState(() {
+                    _hideTop = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(hideTop: e));
+                },
+              ),
+              SwitchListTile(
+                title: Text("Hide Bottom"),
+                value: _hideBottom,
+                onChanged: (e) {
+                  setState(() {
+                    _hideBottom = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(hideBottom: e));
+                },
+              ),
+              SwitchListTile(
+                title: Text("Hide Scroll"),
+                value: _hideScroll,
+                onChanged: (e) {
+                  setState(() {
+                    _hideScroll = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(hideScroll: e));
+                },
+              ),
+              ListTile(
+                title: Text("Clear"),
+                onTap: () {
+                  _controller.clear();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

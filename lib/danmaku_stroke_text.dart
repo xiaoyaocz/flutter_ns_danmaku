@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-class DanmakuBorderText extends StatelessWidget {
+class DanmakuStrokeText extends StatelessWidget {
   final String text;
   final TextAlign textAlign;
   final Color color;
   final double fontSize;
   final double strokeWidth;
-  const DanmakuBorderText(
+  final FontWeight fontWeight;
+  const DanmakuStrokeText(
     this.text, {
     this.textAlign = TextAlign.left,
     this.color = Colors.white,
     this.fontSize = 16,
     this.strokeWidth = 2.0,
+    this.fontWeight = FontWeight.normal,
     Key? key,
   }) : super(key: key);
 
@@ -26,6 +28,7 @@ class DanmakuBorderText extends StatelessWidget {
           style: TextStyle(
             fontSize: fontSize,
             overflow: TextOverflow.visible,
+            fontWeight: fontWeight,
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = strokeWidth
@@ -40,6 +43,7 @@ class DanmakuBorderText extends StatelessWidget {
           textAlign: textAlign,
           style: TextStyle(
             fontSize: fontSize,
+            fontWeight: fontWeight,
             color: color,
             overflow: TextOverflow.visible,
           ),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 class DanmakuOption {
   /// 默认的字体大小
   final double fontSize;
@@ -24,7 +26,11 @@ class DanmakuOption {
   final double strokeWidth;
 
   /// 文本是否有边框
-  final bool borderText;
+  final bool strokeText;
+
+  /// 字重
+  final FontWeight fontWeight;
+
   DanmakuOption({
     this.fontSize = 16,
     this.area = 1.0,
@@ -33,8 +39,9 @@ class DanmakuOption {
     this.hideBottom = false,
     this.hideScroll = false,
     this.hideTop = false,
-    this.borderText = true,
+    this.strokeText = true,
     this.strokeWidth = 2.0,
+    this.fontWeight = FontWeight.normal,
   });
 
   DanmakuOption copyWith({
@@ -47,6 +54,7 @@ class DanmakuOption {
     bool? hideScroll,
     bool? borderText,
     double? strokeWidth,
+    FontWeight? fontWeight,
   }) {
     return DanmakuOption(
       area: area ?? this.area,
@@ -56,8 +64,9 @@ class DanmakuOption {
       hideTop: hideTop ?? this.hideTop,
       hideBottom: hideBottom ?? this.hideBottom,
       hideScroll: hideScroll ?? this.hideScroll,
-      borderText: borderText ?? this.borderText,
+      strokeText: borderText ?? this.strokeText,
       strokeWidth: strokeWidth ?? this.strokeWidth,
+      fontWeight: fontWeight ?? this.fontWeight,
     );
   }
 }

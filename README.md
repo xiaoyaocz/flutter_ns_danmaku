@@ -51,6 +51,13 @@ class _DanmakuPageState extends State<DanmakuPage> {
 
 ```
 
+## 更新修改
+
+### v0.0.6
+
+- 增加FontWeight配置
+- 修改`borderText` -> `strokeText`
+
 ## 参考及引用
 
 [xiaoyaocz/NSDanmaku](https://github.com/xiaoyaocz/NSDanmaku) `本项目的UWP版，有兴趣可以看看`

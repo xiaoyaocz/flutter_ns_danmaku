@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ns_danmaku/danmaku_border_text.dart';
+import 'package:ns_danmaku/danmaku_stroke_text.dart';
 
 class ScrollItemView extends StatefulWidget {
   final String text;
@@ -12,6 +12,7 @@ class ScrollItemView extends StatefulWidget {
   final bool border;
   final Size size;
   final double strokeWidth;
+  final FontWeight fontWeight;
   final Function(String)? onComplete;
   final Function(AnimationController)? onCreated;
   const ScrollItemView({
@@ -25,6 +26,7 @@ class ScrollItemView extends StatefulWidget {
     this.size = Size.zero,
     this.border = true,
     this.strokeWidth = 2.0,
+    this.fontWeight = FontWeight.normal,
     this.onComplete,
     this.onCreated,
     required UniqueKey key,
@@ -80,17 +82,21 @@ class _ScrollItemViewState extends State<ScrollItemView>
         height: widget.size.height,
         width: widget.size.width,
         child: widget.border
-            ? DanmakuBorderText(
+            ? DanmakuStrokeText(
                 widget.text,
                 color: widget.color,
                 fontSize: widget.fontSize,
                 strokeWidth: widget.strokeWidth,
+                fontWeight: widget.fontWeight,
               )
             : Text(
                 widget.text,
+                softWrap: false,
+                overflow: TextOverflow.visible,
                 style: TextStyle(
                   color: widget.color,
                   fontSize: widget.fontSize,
+                  fontWeight: widget.fontWeight,
                   letterSpacing: 2,
                   overflow: TextOverflow.visible,
                 ),
