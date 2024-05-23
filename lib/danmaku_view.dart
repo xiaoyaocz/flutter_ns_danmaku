@@ -85,9 +85,9 @@ class _DanmakuViewState extends State<DanmakuView> {
     widget.createdController.call(
       _controller,
     );
-    _timer = Timer.periodic(const Duration(seconds: 1), (e) {
+    _timer = Timer.periodic(const Duration(milliseconds: 1), (e) {
       if (_controller.running) {
-        _runTime += 1;
+        _runTime += 0.001;
       }
     });
     super.initState();
