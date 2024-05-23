@@ -66,7 +66,7 @@ class _PositionItemViewState extends State<PositionItemView>
 
   void statusUpdate(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
-      widget.onComplete?.call(widget.key.toString());
+      widget.onComplete?.call(widget.key.hashCode.toString());
       setState(() {
         //完成动画隐藏弹幕，当DanmakuView SetState时，这个Widget会被移除
         isVisiable = false;

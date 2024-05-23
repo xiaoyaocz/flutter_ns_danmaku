@@ -167,7 +167,7 @@ class _DanmakuViewState extends State<DanmakuView> {
       return;
     }
 
-    var id = key.toString();
+    var id = key.hashCode.toString();
     _scrollIDs.add(id);
 
     _scrollWidgets.addAll({
@@ -201,7 +201,7 @@ class _DanmakuViewState extends State<DanmakuView> {
     }
 
     // 生成一个唯一ID
-    var id = key.toString();
+    var id = key.hashCode.toString();
     double top = 0.0;
     if (item.type == DanmakuItemType.top) {
       top = computeTopAvailableRow(item);
