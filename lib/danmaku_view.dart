@@ -35,9 +35,9 @@ class _DanmakuViewState extends State<DanmakuView> {
   DanmakuOption _option = DanmakuOption();
 
   /// 弹幕集合
-  final Map<UniqueKey, Widget> _scrollWidgets = {};
+  final Map<String, Widget> _scrollWidgets = {};
 
-  final Map<UniqueKey, Widget> _positionWidgets = {};
+  final Map<String, Widget> _positionWidgets = {};
 
   /// 单条弹幕高度
   double _itemHeight = 0;
@@ -52,7 +52,7 @@ class _DanmakuViewState extends State<DanmakuView> {
   int _maxRowNum = 0;
 
   /// 弹幕动画控制器集合
-  final Map<UniqueKey, AnimationController> _controllers = {};
+  final Map<String, AnimationController> _controllers = {};
 
   /// 滚动弹幕行信息
   List<RowInfo?> _scrollRows = [];
@@ -64,7 +64,7 @@ class _DanmakuViewState extends State<DanmakuView> {
   List<double> _bottomOutTimes = [];
 
   /// 屏幕中的全部滚动弹幕ID
-  final List<UniqueKey> _scrollIDs = [];
+  final List<String> _scrollIDs = [];
 
   /// 屏幕中的全部顶部弹幕ID
   final List<String> _topIDs = [];
@@ -85,9 +85,9 @@ class _DanmakuViewState extends State<DanmakuView> {
     widget.createdController.call(
       _controller,
     );
-    _timer = Timer.periodic(const Duration(seconds: 1), (e) {
+    _timer = Timer.periodic(const Duration(milliseconds: 1), (e) {
       if (_controller.running) {
-        _runTime += 1;
+        _runTime += 0.001;
       }
     });
     super.initState();
@@ -167,10 +167,11 @@ class _DanmakuViewState extends State<DanmakuView> {
       return;
     }
 
-    _scrollIDs.add(key);
+    var id = key.hashCode.toString();
+    _scrollIDs.add(id);
 
     _scrollWidgets.addAll({
-      key: ScrollItemView(
+      id: ScrollItemView(
         text: e.text,
         duration: _option.duration,
         strokeWidth: _option.strokeWidth,
@@ -184,7 +185,7 @@ class _DanmakuViewState extends State<DanmakuView> {
         onComplete: onItemComplete,
         border: _option.strokeText,
         onCreated: (e) {
-          _controllers.addAll({key: e});
+          _controllers.addAll({id: e});
         },
         key: key,
       )
@@ -200,7 +201,7 @@ class _DanmakuViewState extends State<DanmakuView> {
     }
 
     // 生成一个唯一ID
-    var id = key.toString();
+    var id = key.hashCode.toString();
     double top = 0.0;
     if (item.type == DanmakuItemType.top) {
       top = computeTopAvailableRow(item);
@@ -217,7 +218,7 @@ class _DanmakuViewState extends State<DanmakuView> {
       }
 
       _positionWidgets.addAll({
-        key: PositionItemView(
+        id: PositionItemView(
           key: key,
           text: item.text,
           color: item.color,
@@ -229,7 +230,7 @@ class _DanmakuViewState extends State<DanmakuView> {
           onComplete: onItemComplete,
           y: top,
           onCreated: (e) {
-            _controllers.addAll({key: e});
+            _controllers.addAll({id: e});
           },
         )
       });

@@ -63,7 +63,7 @@ class _ScrollItemViewState extends State<ScrollItemView>
 
   void statusUpdate(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
-      widget.onComplete?.call(widget.key.toString());
+      widget.onComplete?.call(widget.key.hashCode.toString());
     }
   }
 
