@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                     _strokeText = e;
                   });
                   _controller
-                      .updateOption(_controller.option.copyWith(borderText: e));
+                      .updateOption(_controller.option.copyWith(strokeText: e));
                 },
               ),
               SwitchListTile(

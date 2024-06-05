@@ -22,7 +22,7 @@ class DanmakuOption {
   /// 隐藏滚动弹幕
   final bool hideScroll;
 
-  /// 弹幕描边
+  /// 文本描边宽度
   final double strokeWidth;
 
   /// 文本是否有边框
@@ -52,7 +52,7 @@ class DanmakuOption {
     bool? hideTop,
     bool? hideBottom,
     bool? hideScroll,
-    bool? borderText,
+    bool? strokeText,
     double? strokeWidth,
     FontWeight? fontWeight,
   }) {
@@ -64,7 +64,7 @@ class DanmakuOption {
       hideTop: hideTop ?? this.hideTop,
       hideBottom: hideBottom ?? this.hideBottom,
       hideScroll: hideScroll ?? this.hideScroll,
-      strokeText: borderText ?? this.strokeText,
+      strokeText: strokeText ?? this.strokeText,
       strokeWidth: strokeWidth ?? this.strokeWidth,
       fontWeight: fontWeight ?? this.fontWeight,
     );
