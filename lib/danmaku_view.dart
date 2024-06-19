@@ -178,7 +178,7 @@ class _DanmakuViewState extends State<DanmakuView> {
         begin: begin,
         // 增加5%防止弹幕刚好完全移出屏幕时还未消失
         end: end * 1.05,
-        y: y.toDouble() * 1.2,
+        y: y.toDouble() * _option.lineHeight,
         size: Size(danmuSize.width, _itemHeight),
         color: e.color,
         fontSize: _option.fontSize,
@@ -289,7 +289,7 @@ class _DanmakuViewState extends State<DanmakuView> {
     }
     //设置行弹幕最后消失时间
     _topOutTimes[row] = _runTime + 5;
-    return danmuSize.height * 1.2 * row;
+    return danmuSize.height * _option.lineHeight * row;
   }
 
   double computeBottomAvailableRow(DanmakuItem item) {
@@ -306,7 +306,7 @@ class _DanmakuViewState extends State<DanmakuView> {
     }
     //设置行弹幕最后消失时间
     _bottomOutTimes[row] = _runTime + 5;
-    return danmuSize.height * 1.2 * row;
+    return danmuSize.height * _option.lineHeight * row;
   }
 
   /// 更新弹幕设置
@@ -334,6 +334,9 @@ class _DanmakuViewState extends State<DanmakuView> {
           _controllers[item]?.stop();
         }
       }
+    }
+    if (_option.lineHeight != option.lineHeight) {
+      calculateRowNum(_viewHeight);
     }
     _option = option;
     _controller.option = _option;
@@ -468,7 +471,8 @@ class _DanmakuViewState extends State<DanmakuView> {
     _itemHeight = itemSize.height;
 
     //计算最大行数
-    var maxRow = ((height / (_itemHeight * 1.2)) * _option.area).floor();
+    var maxRow =
+        ((height / (_itemHeight * _option.lineHeight)) * _option.area).floor();
     if (_maxRowNum != maxRow) {
       _scrollRows = List.generate(maxRow, (_) => null);
       _topOutTimes = List.generate(maxRow ~/ 2, (_) => 0);

@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
   bool _strokeText = true;
   double _opacity = 1.0;
   double _duration = 8;
+  double _lineHeight = 1.2;
   double _fontSize = (Platform.isIOS || Platform.isAndroid) ? 16 : 25;
   FontWeight _fontWeight = FontWeight.normal;
   @override
@@ -188,6 +189,20 @@ class _HomePageState extends State<HomePage> {
                   });
                   _controller
                       .updateOption(_controller.option.copyWith(duration: e));
+                },
+              ),
+              Text("LineHeight : $_lineHeight"),
+              Slider(
+                value: _lineHeight,
+                min: 0.5,
+                max: 2.0,
+                divisions: 15,
+                onChanged: (e) {
+                  setState(() {
+                    _lineHeight = e;
+                  });
+                  _controller
+                      .updateOption(_controller.option.copyWith(lineHeight: e));
                 },
               ),
               SwitchListTile(

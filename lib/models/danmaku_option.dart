@@ -31,6 +31,11 @@ class DanmakuOption {
   /// 字重
   final FontWeight fontWeight;
 
+  /// 弹幕行高
+  /// - 1.0表示字体大小的1倍，数字越大弹幕上下间距越大
+  /// - 默认值`1.2`
+  final double lineHeight;
+
   DanmakuOption({
     this.fontSize = 16,
     this.area = 1.0,
@@ -42,6 +47,7 @@ class DanmakuOption {
     this.strokeText = true,
     this.strokeWidth = 2.0,
     this.fontWeight = FontWeight.normal,
+    this.lineHeight = 1.2,
   });
 
   DanmakuOption copyWith({
@@ -55,6 +61,7 @@ class DanmakuOption {
     bool? strokeText,
     double? strokeWidth,
     FontWeight? fontWeight,
+    double? lineHeight,
   }) {
     return DanmakuOption(
       area: area ?? this.area,
@@ -67,6 +74,7 @@ class DanmakuOption {
       strokeText: strokeText ?? this.strokeText,
       strokeWidth: strokeWidth ?? this.strokeWidth,
       fontWeight: fontWeight ?? this.fontWeight,
+      lineHeight: lineHeight ?? this.lineHeight,
     );
   }
 }
