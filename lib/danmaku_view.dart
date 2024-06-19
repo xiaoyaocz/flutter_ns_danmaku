@@ -176,7 +176,8 @@ class _DanmakuViewState extends State<DanmakuView> {
         duration: _option.duration,
         strokeWidth: _option.strokeWidth,
         begin: begin,
-        end: end,
+        // 增加5%防止弹幕刚好完全移出屏幕时还未消失
+        end: end * 1.05,
         y: y.toDouble() * 1.2,
         size: Size(danmuSize.width, _itemHeight),
         color: e.color,
